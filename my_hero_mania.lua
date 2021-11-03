@@ -24,11 +24,6 @@ getgenv()._bypassAntiTP = true;
 
 character.Stats:WaitForChild("Speed"):Destroy()
 
-
-player.Character.CharacterAdded:Connect(function (char)
-    char.Stats.Speed:Destroy()
-end)-- tp bypass pogpgogpogpgopgogoggoogogggp
-
 local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3')))()
 
 local MainWindow = library:CreateWindow("Main") -- Creates the window
