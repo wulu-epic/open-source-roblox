@@ -5,48 +5,6 @@ local hrp = character:WaitForChild("HumanoidRootPart")
 
 local vim = game:GetService("VirtualInputManager")
 
---[[
-
-ALL FRUITS AS OF 04/11/21
-
-AlloFruit
-BarrierFruit
-BombFruit
-BrachioFruit
-BuddhaFruit
-DarkFruit
-DoughFruit
-DragonFruit
-FlameFruit
-FoxFruit
-GasFruit
-GiraffeFruit
-GravityFruit
-GumFruit
-HumanFruit
-IceFruit
-LeopardFruit
-LightFruit
-LoveFruit
-MagmaFruit
-OpFruit
-PawFruit
-PhoenixFruit
-QuakeFruit
-RumbleFruit
-SandFruit
-ShadowFruit
-SnowFruit
-SpinFruit
-SpinoFruit
-SpiritFruit
-SpikeFruit
-StringFruit
-VenomFruit
-WolfFruit
---]]
-
-
 local function sendMesssage(message, duration)
     spawn(function ()
       local CoreGui = game:GetService("StarterGui")
