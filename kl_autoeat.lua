@@ -44,7 +44,7 @@ while enabled do
                     end
                end
                local j = player.PlayerGui:WaitForChild("EatFruitBecky").Dialogue.Accept
-               wait(1)
+               wait(1.4)
                eat()
             end
         end
