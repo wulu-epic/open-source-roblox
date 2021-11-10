@@ -1,0 +1,9 @@
+{
+    "robloxLsp.diagnostics.globals": [
+        "_noclip",
+        "getconnections"
+    ],
+    "robloxLsp.diagnostics.disable": [
+        "undefined-global"
+    ]
+}
