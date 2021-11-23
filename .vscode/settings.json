@@ -4,6 +4,7 @@
         "getconnections"
     ],
     "robloxLsp.diagnostics.disable": [
-        "undefined-global"
+        "undefined-global",
+        "unused-function"
     ]
 }

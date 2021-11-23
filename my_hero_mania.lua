@@ -3,6 +3,8 @@
  local humanoid = character:WaitForChild("Humanoid")
  local hrp = character:WaitForChild("HumanoidRootPart")
  
+ 
+ 
  local ts = game:GetService("TweenService")
  local tweenInfo = TweenInfo.new(0.3,Enum.EasingStyle.Linear,Enum.EasingDirection.Out)
 
@@ -66,6 +68,7 @@
   
  constantCharUpdate()
 
+ 
 
  Settings:Button("Destroy UI", function ()
     for i,v in pairs(game.CoreGui:GetDescendants()) do
@@ -172,7 +175,7 @@ end
         end
     end)
   end
- 
+ -- me when no wanna type all quests in !
  local function scanForNPCS()
  
      local plrLevel2 = string.gsub(player.PlayerGui.HUD.Display.Level.Text, "Lvl ", "")
@@ -275,7 +278,7 @@ local function actualAutoFarm()
             end
             getgenv().npc = scanForNPCS()
           if npc.Health ~=0 then 
-               print("checks passed!")
+               print("alive")
                character = player.Character
                hrp = character.HumanoidRootPart
                 if hasQuest()==false then
