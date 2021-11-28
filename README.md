@@ -7,3 +7,5 @@ games i plan to make scripts on:
    • Slayers Unleashed
    • Legends of Speed
    • Type Race!
+   • Arsenal
+   • My own UI Lib
