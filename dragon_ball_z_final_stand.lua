@@ -11,6 +11,8 @@ getgenv()._autoAttack = false;
 getgenv()._autoDodge = false;
 getgenv()._autoFarm = true;
 
+
+
 local function sendMesssage(message, duration)
    spawn(function ()
       local CoreGui = game:GetService("StarterGui")
@@ -49,12 +51,10 @@ local function getNeededNPC()
       local fake4 = string.gsub(fake3, "%p", "")
       local real = string.gsub(fake4, "%s", "")
       print(real)
-      for x,g in pairs(game.Players:GetChildern()) do
-        if real == level and real ~= g.Name then
+        if real == level then
             print("found: "..v.Name)
             return v
         end
-   end
    end
 end
 
@@ -84,6 +84,8 @@ local function autoAttack()
   spawn(function()
       while _autoAttack do    
        local succ, err = pcall(function()
+        function getNil(name,class) for _,v in pairs(getnilinstances())do if v.ClassName==class and v.Name==name then return v;end end end
+
            local args = {
                [1] = {
                    [1] = "md"
@@ -101,10 +103,11 @@ local function autoAttack()
            else
                print(err)
        end
+       wait(.1)
       end
-      wait(.1)
   end)
 end
+
 
 local function autoFarm() 
    print'called'
@@ -136,7 +139,7 @@ local function autoFarm()
      end
  end)
 end
-
+autoFarm()
 local function autoFarm2() 
    print'called'
    spawn(function()
@@ -163,7 +166,7 @@ local function autoFarm2()
  end)
 end
 
-autoFarm()
+--autoFarm()
 
 
 
