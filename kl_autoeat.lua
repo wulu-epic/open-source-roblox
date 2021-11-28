@@ -5,6 +5,7 @@ local hrp = character:WaitForChild("HumanoidRootPart")
 
 local vim = game:GetService("VirtualInputManager")
 
+
 local function sendMesssage(message, duration)
     spawn(function ()
       local CoreGui = game:GetService("StarterGui")
@@ -18,14 +19,12 @@ local function sendMesssage(message, duration)
     end)
   end
 
-local function eat()
-    --1920x1080 no idea if it works for others
-    vim:SendMouseButtonEvent(753,700,0,true,game,0)
+local function click(a)
+    game:GetService("VirtualInputManager"):SendMouseButtonEvent(a.AbsolutePosition.X+a.AbsoluteSize.X/2,a.AbsolutePosition.Y+50,0,true,a,1)
     wait()
-    vim:SendMouseButtonEvent(753,700,0,false,game,0)
-    enabled = false
-    sendMesssage("eaten fruit", 10)
+    game:GetService("VirtualInputManager"):SendMouseButtonEvent(a.AbsolutePosition.X+a.AbsoluteSize.X/2,a.AbsolutePosition.Y+50,0,false,a,1)
 end
+click(instance)
 
 while enabled do
    wait(0.1)
@@ -44,7 +43,7 @@ while enabled do
                     end
                end
                wait(1.4)
-               eat()
+               click(player.PlayerGui.EatFruitBecky.Dialogue.Accept)
             end
         end
     end
