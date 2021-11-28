@@ -127,7 +127,7 @@ local function autoFarm()
                      repeat wait(math.random(0.01, 1))
                        print('tpd')
                        ts:Create(hrp, tweenInfo, {CFrame = CFrame.new(npc.HumanoidRootPart.Position + Vector3.new(3,3,3), npc.Head.Position)}):Play()
-                       m1click()                        
+                       attack()                       
                      until npc.Humanoid.Health == 0
                      print'dead'
                      autoFarm2()
