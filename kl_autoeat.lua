@@ -24,7 +24,6 @@ local function click(a)
     wait()
     game:GetService("VirtualInputManager"):SendMouseButtonEvent(a.AbsolutePosition.X+a.AbsoluteSize.X/2,a.AbsolutePosition.Y+50,0,false,a,1)
 end
-click(instance)
 
 while enabled do
    wait(0.1)
