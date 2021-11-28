@@ -4,8 +4,17 @@ local humanoid = character:WaitForChild("Humanoid")
 local hrp = character:WaitForChild("HumanoidRootPart")
 
 local ts = game:GetService("TweenService")
-local tweenInfo = TweenInfo.new(0.3,Enum.EasingStyle.Linear,Enum.EasingDirection.Out)
+local tweenInfo = TweenInfo.new(0.1,Enum.EasingStyle.Linear,Enum.EasingDirection.Out)
 local vim = game:GetService('VirtualInputManager')
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/WetCheezit/Bracket-V2/main/src.lua"))()
+local Window, MainGUI = Library:CreateWindow("Anime Fighting Simulator")
+
+local Tab1 = Window:CreateTab("Main")
+local Tab2 = Window:CreateTab("Settings")
+
+local maingbx = Tab1:CreateGroupbox("Main", "Left")
+local misc = Tab1:CreateGroupbox("Misc", "Right")
 
 --// includes auto usage + auto quest wow im so nice B:
 getgenv()._autoFarm = false;
@@ -33,6 +42,56 @@ getgenv()._autoAgility = false;
 getgenv()._noclip = false;
 getgenv()._killPlayer = false;
 
+local function swordStat()
+  spawn(function()
+    pressKey(Enum.KeyCode.Four)
+    wait()
+    m1click()
+  end)
+end
+
+local function chakraStat()
+   spawn(function()
+    pressKey(Enum.KeyCode.Three)
+    wait()
+    m1click()
+   end)
+end
+
+local function strengthStat()
+   spawn(function()
+    pressKey(Enum.KeyCode.One)
+    wait()
+    m1click()
+   end)
+end
+
+local function agilityStat()
+   spawn(function()
+       if not hrp.Position == Vector3.new(1,1,1) then
+        hrp.CFrame = CFrame.new(Vector3.new(1,1,1))
+        pressKey(Enum.KeyCode.Space)
+       end
+       hrp.CFrame = CFrame.new(Vector3.new(1,1,1))
+       pressKey(Enum.KeyCode.Space)
+   end)
+end
+
+local function durabilityStat()
+    spawn(function()
+      pressKey(Enum.KeyCode.Two)
+      wait()
+      m1click()
+    end)
+ end
+
+ local function speedStat()
+    spawn(function()
+        hrp.CFrame = CFrame.new(Vector3.new(1,1,1))
+        pressKey(Enum.KeyCode.W)
+    end)
+ end
+
 local function m1click() 
     vim:SendMouseButtonEvent(753,700,0,true,game,0)
     wait()
@@ -41,9 +100,8 @@ end
 
 local function pressKey(key)
     vim:SendKeyEvent(true, key, false, game)
-    wait()
-    vim:SendKeyEvent(false, key, false, game)
 end
+
 
 local function sendMesssage(message, duration)
     spawn(function ()
@@ -82,23 +140,38 @@ local function redeemCodes()
 
     for i,v in pairs(codes) do
         game:GetService("ReplicatedStorage").RSPackage.Events.GeneralFunction:InvokeServer("Code", v)
-        wait(.05)
+        wait()
     end
-    sendMesssage("finished redeeming all codes", 5)
+    sendMesssage("finished trying to redeeming all codes", 5)
   end)
 end
 
 local function grabChikraCrates()
     spawn(function()
+        local oldpos = hrp.Position
         while _AutoCollectChakraCrates do
-            for i,v in pairs(workspace.MouseIgnore:GetDescendants()) do
+            for i,v in pairs(workspace.MouseIgnore:GetChildren()) do
                 if v.Name == "ChikaraCrate" then
                     hrp.Position = v.ClickBox.Position
-                    wait(0.02)
                     fireclickdetector(v.ClickBox.ClickDetector, 3)
                 end
-                wait(0.3)
+                wait(2)
             end
+            if not _AutoCollectChakraCrates() then
+                hrp.Position = oldpos
+            end
+            wait(2)
         end
     end)
 end
+
+local chikaraToggle = maingbx:CreateToggle("Grab chikara crates", function(state)
+    _AutoCollectChakraCrates = state
+    grabChikraCrates()
+ end)
+ 
+ local RedeemCodesButton = misc:CreateButton("Redeem all codes", function()
+    print("Pressed")
+    redeemCodes ()
+    sendMesssage("started redeeming codes")
+end)
