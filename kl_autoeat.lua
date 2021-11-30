@@ -19,7 +19,7 @@ local function sendMesssage(message, duration)
     end)
   end
 
-local function click(a)
+local function clickinstance(a)
     game:GetService("VirtualInputManager"):SendMouseButtonEvent(a.AbsolutePosition.X+a.AbsoluteSize.X/2,a.AbsolutePosition.Y+50,0,true,a,1)
     wait()
     game:GetService("VirtualInputManager"):SendMouseButtonEvent(a.AbsolutePosition.X+a.AbsoluteSize.X/2,a.AbsolutePosition.Y+50,0,false,a,1)
@@ -42,7 +42,7 @@ while enabled do
                     end
                end
                wait(1.4)
-               click(player.PlayerGui.EatFruitBecky.Dialogue.Accept)
+               clickinstance(player.PlayerGui.EatFruitBecky.Dialogue.Accept)
             end
         end
     end

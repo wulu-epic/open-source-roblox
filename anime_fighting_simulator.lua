@@ -153,6 +153,7 @@ local function grabChikraCrates()
             for i,v in pairs(workspace.MouseIgnore:GetChildren()) do
                 if v.Name == "ChikaraCrate" then
                     hrp.Position = v.ClickBox.Position
+                    wait(2)
                     fireclickdetector(v.ClickBox.ClickDetector, 3)
                 end
                 wait(2)
