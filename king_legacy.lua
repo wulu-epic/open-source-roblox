@@ -70,6 +70,8 @@ local Settings = X.New({
 	Title = "Settings"
 })
 
+getgenv()._autoQuest = false;
+
 getgenv()._weaponName = ""
 getgenv()._autoAttack = false;
 
@@ -150,6 +152,46 @@ local function requiredAmountofKills()
 	return needed	
 end
 
+local function autoQuest()
+    spawn(function()
+        while _autoQuest do
+            getgenv()._plrLevel = tonumber(player.PlayerStats.lvl.Value)
+            if _plrLevel < 31 then
+                for i,v in pairs(game:GetService("Workspace").AntiTPNPC:GetChildren()) do
+
+                    local hh = string.match(v.Name,"%d+")
+                    print(hh)
+                    
+                    if hh == nil then 
+                      print("fuck off")
+                    else
+                        if tonumber(hh) >= _plrLevel then
+                            if hasQuest() == false then
+                                print("woo")
+                                local NPC = v
+                                local onScreen = camera:WorldToScreenPoint(NPC.Head.Position)
+                                local screenPoint = Vector2.new(onScreen.X, onScreen.Y)
+          
+                                teleport(NPC.HumanoidRootPart)
+          
+                                wait(.17)
+                                vim:SendMouseButtonEvent(screenPoint.X,screenPoint.Y,0,true,game,0)
+                                wait(.5)
+                                for _,g in pairs(player.PlayerGui:GetChildren()) do
+                                  if g:FindFirstChild("Dialogue") then
+                                     clickinstance(g.Dialogue.Accept)
+                                  end
+                                end
+                              end
+                        end
+                    end
+                end
+            end
+            wait(.6)
+        end
+    end)
+ end
+
 local function autoEat()
     spawn(function()
         while _autoEatFruit do
@@ -226,8 +268,6 @@ local fruitSelector = DevilFruit.Dropdown({
 })
 
 fruitSelector:SetOptions(fruits)
-
-
 
 local AutoEat = DevilFruit.Toggle({
 	Text = "Auto Eat",
