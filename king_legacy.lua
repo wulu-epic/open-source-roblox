@@ -71,13 +71,15 @@ local Settings = X.New({
 })
 
 getgenv()._weaponName = ""
+getgenv()._autoAttack = false;
+
 getgenv()._fruitName = "";
 getgenv()._pickupFruit  = false;
-
 getgenv()._autoEatFruit = false;
 
+getgenv()._fruit_toSnipe = "";
+getgenv()._snipeFruit = false;
 
-getgenv()._autoAttack = false;
 
 local weapons = {}
 
@@ -116,6 +118,8 @@ local function clickinstance(a)
     game:GetService("VirtualInputManager"):SendMouseButtonEvent(a.AbsolutePosition.X+a.AbsoluteSize.X/2,a.AbsolutePosition.Y+50,0,false,a,1)
 end
 
+--actual script functions
+
 local function getTools() 
   local unpacked = unpack(table)
   for i,v in pairs(player.Backpack:GetChildren()) do
@@ -127,29 +131,49 @@ local function getTools()
   end
 end
 
+local function hasQuest()
+   if player.CurrentQuest.Value == "" then
+	   return false
+   else
+	return true
+   end
+end
+
+print(hasQuest())
+
+local function requiredAmountofKills()
+	if hasQuest() then
+    	local progress = player.QuestProgress.Value
+    	local requirement = string.match(player.CurrentQuest.Value, "%d+")
+        local needed = tonumber(requirement) - tonumber(progress)
+	end
+	return needed	
+end
+
 local function autoEat()
     spawn(function()
         while _autoEatFruit do
             wait(0.1)
-            for i,v in pairs(player.Backpack:GetDescendants()) do
-                if v:IsA("Tool") then
+            for i,v in pairs(player.Backpack:GetChildren()) do
                     print("found tool")
-                    if v.Name == fruitName then
+					print(v.Name)
+                    if v.Name == _fruitName then
                         print("found fruit")
                         humanoid:EquipTool(v)
+						wait(0.1)
                         for x,g in pairs(character:GetChildren()) do
                             if g:IsA("Tool") then
-                                if g.Name == fruitName then
+                                if g.Name == _fruitName then
+									sendMesssage("found tool in backpack")
                                     g:Activate()
+									wait(1.4)
+                                    clickinstance(player.PlayerGui:WaitForChild("EatFruitBecky").Dialogue.Accept)
                                     break
                                  end
                              end
                         end
-                        wait(1.4)
-                        clickinstance(player.PlayerGui.EatFruitBecky.Dialogue.Accept)
                      end
                  end
-             end
          end
     end)    
 end
@@ -159,10 +183,7 @@ local function pickupFruits()
         while _pickupFruit do
           for i,v in pairs(workspace:GetChildren()) do
               if v:IsA("Tool") then
-                  local oldpos = hrp.Position                 
-                  character:PivotTo(v.Handle.Position)
-                  wait(.2)
-                  character:PivotTo(oldpos)
+                  v.Handle.Position = hrp.Position
               end
           end
           wait()
@@ -171,10 +192,26 @@ local function pickupFruits()
   end
 
 
+local function snipeFruit()
+    spawn(function()
+		while _snipeFruit do
+            local args = {
+                [1] = _fruit_toSnipe,
+                [2] = true
+            }
+            
+            game:GetService("ReplicatedStorage").Remotes.Functions.dfbeli:InvokeServer(unpack(args))
+		 wait(.6)
+		end
+	end)
+  end
+
+--// ui shit
+
 local fruitSelector = DevilFruit.Dropdown({
 	Text = "Select a fruit",
 	Callback = function(Value)
-		print(Value)
+		_fruitName = Value
 	end,
 	Options = {
 		
@@ -190,11 +227,41 @@ local fruitSelector = DevilFruit.Dropdown({
 
 fruitSelector:SetOptions(fruits)
 
+
+
 local AutoEat = DevilFruit.Toggle({
 	Text = "Auto Eat",
 	Callback = function(Value)
 		getgenv()._autoEatFruit = Value
         autoEat()
+	end,
+	Enabled = false
+})
+
+local fruitSniperSelector = DevilFruit.Dropdown({
+	Text = "Select a fruit",
+	Callback = function(Value)
+		_fruit_toSnipe = Value
+	end,
+	Options = {
+		
+	},
+	Menu = {
+		Information = function(self)
+			X.Banner({
+				Text = "For auto blackmarket snipe"
+			})
+		end
+	}
+})
+
+fruitSniperSelector:SetOptions(fruits)
+
+local SnipeFruit = DevilFruit.Toggle({
+	Text = "Auto Black Market Sniper",
+	Callback = function(Value)
+		getgenv()._snipeFruit = Value
+        snipeFruit()
 	end,
 	Enabled = false
 })
