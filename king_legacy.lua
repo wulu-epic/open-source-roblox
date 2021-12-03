@@ -189,7 +189,6 @@ table.sort(questlevels, function(a,b)
 	return (a < b)
 end)
 
-
 local function autoQuest()
   spawn(function()
     while _autoQuest do
@@ -337,6 +336,15 @@ local function snipeFruit()
   end
 
 --// ui shit
+
+local AutoQuest = Farms.Toggle({
+	Text = "Auto Quest",
+	Callback = function(Value)
+		getgenv()._autoQuest = Value
+        autoQuest()
+	end,
+	Enabled = false
+})
 
 local fruitSelector = DevilFruit.Dropdown({
 	Text = "Select a fruit",
