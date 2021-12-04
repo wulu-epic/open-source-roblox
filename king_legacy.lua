@@ -78,6 +78,11 @@ local Farms = X.New({
 	Title = "Farms"
 })
 
+local Misc = X.New({
+	Title = "Misc"
+})
+
+
 local DevilFruit = X.New({
 	Title = "Devil Fruits"
 })
@@ -97,6 +102,11 @@ getgenv()._autoEatFruit = false;
 
 getgenv()._fruit_toSnipe = "";
 getgenv()._snipeFruit = false;
+
+getgenv()._autoMelee = false;
+getgenv()._autoDevilFruit = false;
+getgenv()._autoSword = false;
+getgenv()._autoDefense = false;
 
 
 local weapons = {}
@@ -188,6 +198,63 @@ local function getallQuests()
 table.sort(questlevels, function(a,b)
 	return (a < b)
 end)
+
+local function autoMelee()
+    spawn(function()
+        while _autoMelee do
+            local args = {
+                [1] = "Melee",
+                [2] = 1
+            }
+            
+            game:GetService("Players").LocalPlayer.PlayerGui.Stats.Button.StatsFrame.RemoteEvent:FireServer(unpack(args))
+            wait(1.5)
+        end
+    end)
+end
+
+local function autoDefense()
+    spawn(function()
+        while _autoDefense do
+            local args = {
+                [1] = "Defense",
+                [2] = 1
+            }
+            
+            game:GetService("Players").LocalPlayer.PlayerGui.Stats.Button.StatsFrame.RemoteEvent:FireServer(unpack(args))
+            wait(1.5)
+        end
+    end)
+end
+
+local function autoDF()
+    spawn(function()
+        while _autoDevilFruit do
+            local args = {
+                [1] = "Devil Fruit",
+                [2] = 1
+            }
+            
+            game:GetService("Players").LocalPlayer.PlayerGui.Stats.Button.StatsFrame.RemoteEvent:FireServer(unpack(args))
+            wait(1.5)
+        end
+    end)
+end
+
+local function autoSword()
+    spawn(function()
+        while _autoSword do
+            local args = {
+                [1] = "Sword",
+                [2] = 1
+            }
+            
+            game:GetService("Players").LocalPlayer.PlayerGui.Stats.Button.StatsFrame.RemoteEvent:FireServer(unpack(args))
+            wait(1.5)
+        end
+    end)
+end
+
 
 local function autoQuest()
   spawn(function()
@@ -410,4 +477,42 @@ local AutoPickUp = DevilFruit.Toggle({
 	end,
 	Enabled = false
 })
+
+local AutoMelee_ = Misc.Toggle({
+	Text = "Auto Melee",
+	Callback = function(Value)
+		getgenv()._autoMelee = Value
+        autoMelee()
+	end,
+	Enabled = false
+})
+
+local AutoDF_ = Misc.Toggle({
+	Text = "Auto DevilFruit",
+	Callback = function(Value)
+		getgenv()._autoDevilFruit = Value
+        autoDF()
+	end,
+	Enabled = false
+})
+
+local AutoDefense_ = Misc.Toggle({
+	Text = "Auto Defense",
+	Callback = function(Value)
+		getgenv()._autoDefense = Value
+        autoDefense()
+	end,
+	Enabled = false
+})
+
+local AutoSword_ = Misc.Toggle({
+	Text = "Auto Sword",
+	Callback = function(Value)
+		getgenv()._autoSword = Value
+        autoSword()
+	end,
+	Enabled = false
+})
+
+
 
