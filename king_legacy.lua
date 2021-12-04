@@ -513,6 +513,3 @@ local AutoSword_ = Misc.Toggle({
 	end,
 	Enabled = false
 })
-
-
-
