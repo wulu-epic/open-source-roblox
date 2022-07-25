@@ -60,6 +60,9 @@ local function sendMesssage(message, duration)
     end)
 end
 
+
+sendMesssage("Auto Parry by wulu#0827 loaded.", 3)
+
 function autoParry() 
     spawn(function()
         while enabled do 
