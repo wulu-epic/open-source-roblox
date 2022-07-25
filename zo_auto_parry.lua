@@ -2,6 +2,7 @@
     getgenv().enabled = true;
     getgenv().range = 4;
     getgenv().parryHold = 0.4;
+    getgenv().alerts = true;
 --]]
 
 local player = game.Players.LocalPlayer
@@ -71,8 +72,8 @@ function autoParry()
                     if v:FindFirstChild("HumanoidRootPart") ~= nil and v:FindFirstChild("HumanoidRootPart") ~= hrp and v:FindFirstChild("Humanoid") ~= nil and v:FindFirstChild("Humanoid").Health > 0 and (v:FindFirstChild("HumanoidRootPart").Position-hrp.Position).Magnitude < range then
                         for k,g in pairs(v:FindFirstChild("Humanoid"):GetPlayingAnimationTracks()) do
                             if findMatchingAnim(g.Animation.AnimationId) then
-                                sendMesssage("parry NOW", 0.01)
                                 m1()
+                                if alerts then sendMesssage("parry NOW", 0.01) end
                             end
                         end
                     end
