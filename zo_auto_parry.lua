@@ -80,7 +80,7 @@ function autoParry()
                 end
             end)
             if e then print(e) end
-            task.wait(0.02)
+            task.wait()
         end
     end)
 end
