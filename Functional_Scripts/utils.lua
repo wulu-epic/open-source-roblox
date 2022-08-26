@@ -77,9 +77,9 @@ function utils:consoleUI()
 
 	local old ;
 	old = hookfunction(print, function(...)
-		local args = {old(...)}
+		local args = {...}
 		output(args[1])
-		return unpack(args)
+		return old(unpack(args))
 	end)
 end
 
