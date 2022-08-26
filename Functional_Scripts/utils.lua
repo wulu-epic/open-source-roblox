@@ -2,7 +2,9 @@ local PathfindingService = game:GetService("PathfindingService");
 local Players = game:GetService("Players");
 local RunService = game:GetService("RunService");
 
-local path = PathfindingService:CreatePath();
+local path = PathfindingService:CreatePath({
+	['AgentCanJump'] = true;
+});
 
 local player = Players.LocalPlayer;
 local character = player.Character;
@@ -46,6 +48,12 @@ function utils:pathfind(destination)
 				end);
 			end;
 			nextWaypointIndex = 2;
+
+			
+			for i,v in ipairs(path:GetWaypoints()) do
+				if v.Action == Enum.PathWaypointAction.Jump then humanoid.Jump = true print('jump') end
+			end
+	  
 			humanoid:MoveTo(waypoints[nextWaypointIndex].Position);
 		else
 			warn("Path not computed!", errorMessage);
