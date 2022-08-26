@@ -13,7 +13,7 @@
 
 ## How to start using **'utils.lua'**
 ```lua
-local x = loadstring(game:HttpGet("https://raw.githubusercontent.com/wulu-epic/open-source-roblox/main/utils.lua"))()
+local x = loadstring(game:HttpGet("https://github.com/wulu-epic/open-source-roblox/blob/main/Functional_Scripts/utils.lua"))()
 local utils = x.new()
 utils:test() -- Outputs 'utils initalized'.
 ```
