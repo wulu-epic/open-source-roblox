@@ -2,7 +2,7 @@ local PathfindingService = game:GetService("PathfindingService");
 local Players = game:GetService("Players");
 local RunService = game:GetService("RunService");
 local path = PathfindingService:CreatePath({
-	AgentCanJump = true
+	["AgentCanJump"] = true
 });
 local player = Players.LocalPlayer;
 local character = player.Character;
@@ -15,38 +15,49 @@ function utils.new()
 	local self = {};
 	return setmetatable(self, utils);
 end;
+
 function utils:pathfind(destination)
+    local waypoints;
+	local nextWaypointIndex;
+	local reachedConnection;
+	local blockedConnection;
 	local function followPath()
-		local human = humanoid;
-		local Body = hrp;
-		local Destination = destination;
-		local path = (game:GetService("PathfindingService")):CreatePath();
-		path:ComputeAsync(Body.Position, Destination);
-		if path.Status == Enum.PathStatus.Success then
-			local wayPoints = path:GetWaypoints();
-			for i = 1, #wayPoints do
-				local point = wayPoints[i];
-				human:MoveTo(point.Position);
-				local success = human.MoveToFinished:Wait();
-				if point.Action == Enum.PathWaypointAction.Jump then
-					human.WalkSpeed = 0;
-					wait(0);
-					human.WalkSpeed = 16;
-					human.Jump = true;
+		local success, errorMessage = pcall(function()
+			path:ComputeAsync(character.PrimaryPart.Position, destination);
+		end);
+		if success and path.Status == Enum.PathStatus.Success then
+			waypoints = path:GetWaypoints();
+			blockedConnection = path.Blocked:Connect(function(blockedWaypointIndex)
+				if blockedWaypointIndex >= nextWaypointIndex then
+					blockedConnection:Disconnect();
+					followPath(destination);
 				end;
-				if not success then
-					print("trying again");
-					human.Jump = true;
-					human:MoveTo(point.Position);
-					if not human.MoveToFinished:Wait() then
-						break;
+			end);
+			if not reachedConnection then
+				reachedConnection = humanoid.MoveToFinished:Connect(function(reached)
+					if reached and nextWaypointIndex < (#waypoints) then
+						nextWaypointIndex = nextWaypointIndex + 1;
+						humanoid:MoveTo(waypoints[nextWaypointIndex].Position);
+					else
+						reachedConnection:Disconnect();
+						blockedConnection:Disconnect();
 					end;
-				end;
+				end);
 			end;
+			nextWaypointIndex = 2;
+
+
+			for i,v in ipairs(path:GetWaypoints()) do
+				if v.Action == Enum.PathWaypointAction.Jump then humanoid.Jump = true print('jump') end
+			end
+
+			humanoid:MoveTo(waypoints[nextWaypointIndex].Position);
+		else
+			warn("Path not computed!", errorMessage);
 		end;
 	end;
-	followPath(destination);
-end;
+	followPath(destination)
+end
 
 function utils:consoleUI()
 	local screengui = Instance.new("ScreenGui", game.CoreGui);
