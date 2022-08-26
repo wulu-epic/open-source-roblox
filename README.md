@@ -11,9 +11,11 @@
    • My own UI Lib
 ```
 
-## How to use **'utils.lua'**
+## **utils.lua**
+
+## How to start using **'utils.lua'**
 ```lua
 local x = loadstring(game:HttpGet("https://raw.githubusercontent.com/wulu-epic/open-source-roblox/main/utils.lua"))()
 local utils = x.new()
-utils:test() -- outputs initalized
+utils:test() -- Outputs 'utils initalized'.
 ```
