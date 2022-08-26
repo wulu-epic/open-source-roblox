@@ -17,7 +17,7 @@ function utils.new()
 end;
 function utils:pathfind(destination)
 	local function followPath()
-		local human = game.Players.LocalPlayer.Character.Humanoid;
+		local human = humanoid;
 		local Body = hrp;
 		local Destination = destination;
 		local path = (game:GetService("PathfindingService")):CreatePath();
