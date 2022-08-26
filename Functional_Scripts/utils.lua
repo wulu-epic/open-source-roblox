@@ -54,11 +54,11 @@ function utils:pathfind(destination)
 end
 
 function utils:consoleUI()
-	local frame = Instance.new('ScrollingFrame')
+	local screengui = Instance.new('ScreenGui', game.CoreGui)
+	local frame = Instance.new('ScrollingFrame',screengui)
 	frame.Position = UDim2.new(.3,0,0.3,0)
 	frame.Size = UDim2.new(0.3,0,.3,0)
 	frame.Draggable = true;
-	frame.Parent = game.CoreGui
 	frame.BackgroundColor3 = Color3.fromRGB(18,18,18)
 	frame.Visible = true
 	
