@@ -131,4 +131,21 @@ function utils:test()
     print("utils initalized!")
 end
 
+function utils:findClosestAlivePlayer()
+	local old = nil;
+	for i,v in pairs (game.Players:GetChildren()) do
+		if v.Character and v.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("HumanoidRootPart")  and v.Character ~= character then
+			if old~=nil and old.magntiude<(v.Character:FindFirstChild("HumanoidRootPart").Position - hrp.Position).magntiude then
+				old = (v.Character:FindFirstChild("HumanoidRootPart").Position - hrp.Position);
+			else
+				if old.magntiude < 200 then
+					old = (v.Character:FindFirstChild("HumanoidRootPart").Position - hrp.Position)
+				end
+			end
+		end
+	end
+	print(old.magntiude)
+	return old;
+end
+
 return utils;
