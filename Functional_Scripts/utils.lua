@@ -63,6 +63,7 @@ function utils:consoleUI()
 	frame.BackgroundColor3 = Color3.fromRGB(18,18,18)
 	frame.AutomaticCanvasSize=Enum.AutomaticSize.XY
 	frame.Visible = true
+	frame.ScrollingEnabled = true;
 
 	local exit = Instance.new("TextButton", frame)
 	exit.Position = UDim2.new(1,0,1,0)
