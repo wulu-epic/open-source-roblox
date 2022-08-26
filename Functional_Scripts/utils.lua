@@ -63,6 +63,16 @@ function utils:consoleUI()
 	frame.BackgroundColor3 = Color3.fromRGB(18,18,18)
 	frame.AutomaticCanvasSize=Enum.AutomaticSize.XY
 	frame.Visible = true
+
+	local exit = Instance.new("TextButton", frame)
+	exit.Position = UDim2.new(1,0,1,0)
+	exit.BackgroundColor3 = Color3.fromRGB(255,0,0)
+	exit.TextColor3 = Color3.new(1, 1, 1)
+	exit.Text = "X"
+
+	exit.MouseButton1Click:Connect(function()
+		screengui:Destroy()
+	end)
 	
 	local list = Instance.new('UIListLayout', frame)
 	list.FillDirection = Enum.FillDirection.Vertical;
