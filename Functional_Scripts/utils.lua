@@ -15,6 +15,7 @@ function utils.new()
 	local self = {};
 	return setmetatable(self, utils);
 end;
+	
 
 function utils:pathfind(destination)
     local waypoints;
@@ -27,6 +28,9 @@ function utils:pathfind(destination)
 		end);
 		if success and path.Status == Enum.PathStatus.Success then
 			waypoints = path:GetWaypoints();
+			for i,v in ipairs(path:GetWaypoints()) do
+				if v.Action == Enum.PathWaypointAction.Jump then humanoid.Jump = true print('jump') end
+			end
 			blockedConnection = path.Blocked:Connect(function(blockedWaypointIndex)
 				if blockedWaypointIndex >= nextWaypointIndex then
 					blockedConnection:Disconnect();
@@ -47,9 +51,7 @@ function utils:pathfind(destination)
 			nextWaypointIndex = 2;
 
 
-			for i,v in ipairs(path:GetWaypoints()) do
-				if v.Action == Enum.PathWaypointAction.Jump then humanoid.Jump = true print('jump') end
-			end
+			
 
 			humanoid:MoveTo(waypoints[nextWaypointIndex].Position);
 		else

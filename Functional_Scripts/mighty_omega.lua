@@ -20,6 +20,10 @@ getgenv().calesthetic = "pushup"
 getgenv().maxBodyFatigue = 100;
 getgenv().minBodyFatigue = 50;
 
+getgenv().importantPositions = {
+    ["HospitalBed"] = Vector3.new(-836.4135131835938, 75.36642456054688, -197.6240997314453)
+}
+
 local function m1click() 
     vim:SendMouseButtonEvent(0,0,0,true,game,0)
     wait()
@@ -118,7 +122,7 @@ end
 
 function mightyOmega:AutoSleep()
     function mightyOmega:sleep()
-        --your mom
+        utils:pathfind(getgenv().importantPositions["Hospital"])
     end
 
     if self.bodyFatigue < self.minBodyFatigue then
