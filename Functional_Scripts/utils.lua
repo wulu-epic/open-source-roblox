@@ -76,7 +76,12 @@ function utils:consoleUI()
 		txtlabel.Text = string;
 	end
 
-	hookfunction(print, output)
+	local old ;
+	old = hookfunction(print, function(...)
+		local args = {old(...)}
+		output(args[1])
+		return unpack(args)
+	end)
 end
 
 function utils:test()
