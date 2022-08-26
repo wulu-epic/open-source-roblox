@@ -53,7 +53,7 @@ function utils:pathfind(destination)
 	end;
 end
 
-function utils:consoleUI(text)
+function utils:consoleUI()
 	local frame = Instance.new('ScrollingFrame')
 	frame.Position = UDim2.new(.3,0,0.3,0)
 	frame.Size = UDim2.new(0.3,0,.3,0)
