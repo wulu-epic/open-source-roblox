@@ -7,6 +7,8 @@ local path = PathfindingService:CreatePath({
 local player = Players.LocalPlayer;
 local character = player.Character;
 local humanoid = character:WaitForChild("Humanoid");
+local hrp = character:WaitForChild("HumanoidRootPart")
+
 local utils = {};
 utils.__index = utils;
 function utils.new()
@@ -16,7 +18,7 @@ end;
 function utils:pathfind(destination)
 	local function followPath()
 		local human = game.Players.LocalPlayer.Character.Humanoid;
-		local Body = game.Players.LocalPlayer.Character.Torso or game.Players.LocalPlayer.Character.HumanoidRootPart;
+		local Body = hrp;
 		local Destination = destination;
 		local path = (game:GetService("PathfindingService")):CreatePath();
 		path:ComputeAsync(Body.Position, Destination);

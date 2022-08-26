@@ -13,16 +13,17 @@ local vim = game:GetService('VirtualInputManager')
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "Mighty Omega", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
-getgenv().autoSleep = true;
-getgenv().autoCalesthetic = true;
+getgenv().autoSleep = false;
+getgenv().autoCalesthetic = false;
+getgenv().calesthetic = "pushup"
 
 getgenv().maxBodyFatigue = 100;
 getgenv().minBodyFatigue = 50;
 
 local function m1click() 
-    vim:SendMouseButtonEvent(753,700,0,true,game,0)
+    vim:SendMouseButtonEvent(0,0,0,true,game,0)
     wait()
-    vim:SendMouseButtonEvent(753,700,0,false,game,0)
+    vim:SendMouseButtonEvent(0,0,0,false,game,0)
 end
 
 
@@ -32,16 +33,16 @@ local Training = Window:MakeTab({
 	PremiumOnly = false
 })
 
+local calestheticsec = Training:AddSection({
+	Name = "Calesthetics"
+})
+
+
 local Misc = Window:MakeTab({
 	Name = "Misc",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
-
-local Calesthetics = Training:AddSection({
-	Name = "Calesthetics"
-})
-
 
 local mightyOmega = {}
 mightyOmega.__index = mightyOmega;
@@ -50,7 +51,7 @@ function mightyOmega.new()
     local self = {}
     local x = player.PlayerGui.MainGui.Utility.BodyFatigue.Text; local bodyFatigue = tonumber(string.match(x, "[%d.]+"))
 
-    self.stamina = character.FindFirstChild("CurrentStamina").Value
+    self.stamina = character:FindFirstChild("CurrentStamina").Value
     self.bodyFatigue = bodyFatigue
 
     return setmetatable(self,mightyOmega)
@@ -61,9 +62,10 @@ function mightyOmega:update()
         while task.wait(0.4) do
             local x = player.PlayerGui.MainGui.Utility.BodyFatigue.Text; local bodyFatigue = tonumber(string.match(x, "[%d.]+"))
     
-            self.stamina = character.FindFirstChild("CurrentStamina").Value
+            self.stamina = character:FindFirstChild("CurrentStamina").Value
             self.bodyFatigue = bodyFatigue
-            self.maxStamina = character.FindFirstChild("MaxStamina").Value
+            self.maxStamina = character:
+            FindFirstChild("MaxStamina").Value
 
             player = game.Players.LocalPlayer
             character = player.Character or player.CharacterAdded:Wait()
@@ -97,7 +99,7 @@ function mightyOmega:autoCalesthetic(calesthetic)
             })
             return;
         end
-        mightyOmega:DoCalesthetic("Push Up")
+        mightyOmega:DoCalesthetic("Push up")
     end
 
     if calesthetic == "Squat" then
@@ -115,7 +117,6 @@ function mightyOmega:autoCalesthetic(calesthetic)
 end
 
 function mightyOmega:AutoSleep()
-
     function mightyOmega:sleep()
         --your mom
     end
@@ -125,4 +126,28 @@ function mightyOmega:AutoSleep()
     end
 end
 
-OrionLib:Init()
+function mightyOmega:test()
+    print'initalized'
+end 
+
+local x = mightyOmega.new();
+x:test()
+
+calestheticsec:AddToggle({
+	Name = "Auto Train",
+	Default = false,
+	Callback = function(Value)
+        autoCalesthetic = true;
+		x:autoCalesthetic(calesthetic)
+	end    
+})
+
+calestheticsec:AddDropdown({
+	Name = "Calesthetic Selector",
+	Default = "pushup",
+	Options = {"pushup", "Squat"},
+	Callback = function(Value)
+		getgenv().calesthetic = Value;
+	end    
+})
+
