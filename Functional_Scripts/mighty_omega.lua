@@ -80,6 +80,7 @@ function mightyOmega:update()
 end
 
 function mightyOmega:autoCalesthetic(calesthetic)
+
     function mightyOmega:DoCalesthetic(c)
         humanoid:EquipTool(player.Backpack:FindFirstChild(c))
         while getgenv().autoCalesthetic do
@@ -135,13 +136,13 @@ function mightyOmega:test()
 end 
 
 local x = mightyOmega.new();
-x:test()
+x:update()
 
 calestheticsec:AddToggle({
 	Name = "Auto Train",
 	Default = false,
 	Callback = function(Value)
-        autoCalesthetic = true;
+        autoCalesthetic = Value;
 		x:autoCalesthetic(calesthetic)
 	end    
 })
