@@ -1,7 +1,7 @@
-roblox scripts
-wulu#0827
+# ROBLOX scripts by wulu#0827
 
-games i plan to make scripts on:
+## Scripts I plan to develop
+```
    • Demonfall
    • King Legacy
    • Slayers Unleashed
@@ -9,9 +9,13 @@ games i plan to make scripts on:
    • Type Race!
    • Arsenal
    • My own UI Lib
+```
 
-How to use 'utils.lua'
+## **utils.lua**
 
+## How to start using **'utils.lua'**
+```lua
 local x = loadstring(game:HttpGet("https://raw.githubusercontent.com/wulu-epic/open-source-roblox/main/utils.lua"))()
 local utils = x.new()
-utils:test() -- outputs initalized
+utils:test() -- Outputs 'utils initalized'.
+```
