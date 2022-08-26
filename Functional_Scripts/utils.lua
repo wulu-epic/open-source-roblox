@@ -68,7 +68,7 @@ function utils:consoleUI()
 
 	function output(txt)
 		local txtlabel = Instance.new("TextLabel", frame)
-		txtlabel.Size = UDim2.new(1,0,0.2,0)
+		txtlabel.Size = UDim2.new(0.05,0,0.05,0)
 		txtlabel.TextColor3 = Color3.fromRGB(255,255,255)
 		txtlabel.BackgroundTransparency=1;
 		txtlabel.TextScaled = true;
@@ -78,8 +78,25 @@ function utils:consoleUI()
 	local old ;
 	old = hookfunction(print, function(...)
 		local args = {...}
+		frame.CanvasSize = list.AbsoluteContentSize;
 		output(args[1])
 		return old(unpack(args))
+	end)
+
+	local old3 ;
+	old2 = hookfunction(error, function(...)
+		local args = {...}
+		frame.CanvasSize = list.AbsoluteContentSize;
+		output(args[1])
+		return old2(unpack(args))
+	end)
+
+	local old3 ;
+	old3 = hookfunction(warn, function(...)
+		local args = {...}
+		frame.CanvasSize = list.AbsoluteContentSize;
+		output(args[1])
+		return old3(unpack(args))
 	end)
 end
 
