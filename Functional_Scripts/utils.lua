@@ -53,6 +53,30 @@ function utils:pathfind(destination)
 	end;
 end
 
+function utils:consoleUI(text)
+	local frame = Instance.new('ScrollingFrame')
+	frame.Position = UDim2.new(.3,0,0.3,0)
+	frame.Size = UDim2.new(0.3,0,.3,0)
+	frame.Draggable = true;
+
+	frame.BackgroundColor3 = Color3.fromRGB(18,18,18)
+	
+	local list = Instance.new('UIListLayout', frame)
+	list.FillDirection = Enum.FillDirection.Vertical;
+	
+
+	function output(string)
+		local txtlabel = Instance.new("TextLabel", frame)
+		txtlabel.Size = UDim2.new(1,0,0.2,0)
+		txtlabel.TextColor3 = Color3.fromRGB(255,255,255)
+		txtlabel.BackgroundTransparency=1;
+		txtlabel.TextScaled = true;
+		txtlabel.Text = string;
+	end
+
+	output(text);
+end
+
 function utils:test()
     print("utils initalized!")
 end
