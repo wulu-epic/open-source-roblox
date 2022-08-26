@@ -17,3 +17,8 @@ local x = loadstring(game:HttpGet("https://github.com/wulu-epic/open-source-robl
 local utils = x.new()
 utils:test() -- Outputs 'utils initalized'.
 ```
+
+## features
+
+### consoleUI
+##### ```Logs all output to a frame window so u wont have to open the annoying output window```
