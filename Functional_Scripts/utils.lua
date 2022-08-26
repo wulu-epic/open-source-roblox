@@ -51,6 +51,7 @@ function utils:pathfind(destination)
 			warn("Path not computed!", errorMessage);
 		end;
 	end;
+	followPath(destination)
 end
 
 function utils:consoleUI()
