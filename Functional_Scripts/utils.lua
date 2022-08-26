@@ -66,13 +66,21 @@ function utils:consoleUI()
 	local list = Instance.new('UIListLayout', frame)
 	list.FillDirection = Enum.FillDirection.Vertical;
 	
+	local TIME_ZONE = 1
+
+	local date = os.date("!*t")
+	local hour = (date.hour + TIME_ZONE) % 24
+	local ampm = hour < 12 and "AM" or "PM"
+	local timestamp = string.format("%02i:%02i %s", ((hour - 1) % 12) + 1, date.min, ampm)
+
 
 	function output(txt)
 		local txtlabel = Instance.new("TextLabel", frame)
 		txtlabel.Size = UDim2.new(1,0,0.05,0)
 		txtlabel.TextColor3 = Color3.fromRGB(255,255,255)
 		txtlabel.BackgroundTransparency=1;
-		txtlabel.Text = txt;
+		txtlabel.TextXAlignment = Enum.TextXAlignment.Left
+		txtlabel.Text = timestamp.. ": "..txt;
 		txtlabel.Size = 34;
 	end
 
