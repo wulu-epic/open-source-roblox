@@ -59,6 +59,8 @@ function utils:consoleUI(text)
 	frame.Size = UDim2.new(0.3,0,.3,0)
 	frame.Draggable = true;
 
+	frame.Parent = game.CoreGui
+
 	frame.BackgroundColor3 = Color3.fromRGB(18,18,18)
 	
 	local list = Instance.new('UIListLayout', frame)
@@ -74,7 +76,7 @@ function utils:consoleUI(text)
 		txtlabel.Text = string;
 	end
 
-	output(text);
+	hookfunction(print, output)
 end
 
 function utils:test()
