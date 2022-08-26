@@ -67,13 +67,13 @@ function utils:consoleUI()
 	list.FillDirection = Enum.FillDirection.Vertical;
 	
 
-	function output(string)
+	function output(txt)
 		local txtlabel = Instance.new("TextLabel", frame)
 		txtlabel.Size = UDim2.new(1,0,0.2,0)
 		txtlabel.TextColor3 = Color3.fromRGB(255,255,255)
 		txtlabel.BackgroundTransparency=1;
 		txtlabel.TextScaled = true;
-		txtlabel.Text = string;
+		txtlabel.Text = txt;
 	end
 
 	local old ;
