@@ -133,18 +133,21 @@ end
 
 function utils:findClosestAlivePlayer()
 	local old = nil;
+	local c = nil
 	for i,v in pairs (game.Players:GetChildren()) do
 		if v.Character and v.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("HumanoidRootPart")  and v.Character ~= character then
 			if old~=nil and old.magntiude<(v.Character:FindFirstChild("HumanoidRootPart").Position - hrp.Position).magntiude then
 				old = (v.Character:FindFirstChild("HumanoidRootPart").Position - hrp.Position);
+				local c=v.Character:FindFirstChild("HumanoidRootPart")			
 			else
 				if old.magntiude < 200 then
 					old = (v.Character:FindFirstChild("HumanoidRootPart").Position - hrp.Position)
+					local c=v.Character:FindFirstChild("HumanoidRootPart")			
 				end
 			end
 		end
 	end
-	print(old.magntiude)
+	print(c)
 	return old;
 end
 
