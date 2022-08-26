@@ -65,11 +65,11 @@ function utils:consoleUI()
 	frame.Visible = true
 
 	local exit = Instance.new("TextButton", frame)
-	exit.Position = UDim2.new(0,0,1,0)
+	exit.Position = UDim2.new(1,0,1,0)
 	exit.BackgroundColor3 = Color3.fromRGB(255,0,0)
 	exit.TextColor3 = Color3.new(1, 1, 1)
 	exit.Text = "X"
-	exit.Size = UDim2.new(0.05,0,0.1,0)
+	exit.Size = UDim2.new(0.05,0,0.07,0)
 
 	exit.MouseButton1Click:Connect(function()
 		screengui:Destroy()
