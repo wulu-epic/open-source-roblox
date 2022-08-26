@@ -55,6 +55,7 @@ end
 
 function utils:consoleUI()
 	local screengui = Instance.new('ScreenGui', game.CoreGui)
+
 	local frame = Instance.new('ScrollingFrame',screengui)
 	frame.Position = UDim2.new(.3,0,0.3,0)
 	frame.Size = UDim2.new(0.3,0,.3,0)
@@ -74,10 +75,18 @@ function utils:consoleUI()
 	local timestamp = string.format("%02i:%02i %s", ((hour - 1) % 12) + 1, date.min, ampm)
 
 
-	function output(txt)
+	function output(txt, typ)
 		local txtlabel = Instance.new("TextLabel", frame)
 		txtlabel.Size = UDim2.new(1,0,0.05,0)
-		txtlabel.TextColor3 = Color3.fromRGB(255,255,255)
+		if typ == 1 then
+			txtlabel.TextColor3 = Color3.fromRGB(255,255,255)
+		end
+		if typ == 2 then
+			txtlabel.TextColor3 = Color3.fromRGB(255,0,0)
+		end
+		if typ == 3 then
+			txtlabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+		end
 		txtlabel.BackgroundTransparency=1;
 		txtlabel.TextXAlignment = Enum.TextXAlignment.Left
 		txtlabel.Text = timestamp.. ": "..txt;
@@ -87,21 +96,21 @@ function utils:consoleUI()
 	local old ;
 	old = hookfunction(print, function(...)
 		local args = {...}
-		output(args[1])
+		output(args[1], 1)
 		return old(unpack(args))
 	end)
 
 	local old3 ;
 	old2 = hookfunction(error, function(...)
 		local args = {...}
-		output(args[1])
+		output(args[1],2)
 		return old2(unpack(args))
 	end)
 
 	local old3 ;
 	old3 = hookfunction(warn, function(...)
 		local args = {...}
-		output(args[1])
+		output(args[1],3)
 		return old3(unpack(args))
 	end)
 end
