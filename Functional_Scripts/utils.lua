@@ -60,6 +60,7 @@ function utils:consoleUI()
 	frame.Size = UDim2.new(0.3,0,.3,0)
 	frame.Draggable = true;
 	frame.BackgroundColor3 = Color3.fromRGB(18,18,18)
+	frame.AutomaticCanvasSize=Enum.AutomaticSize.XY
 	frame.Visible = true
 	
 	local list = Instance.new('UIListLayout', frame)
@@ -78,7 +79,6 @@ function utils:consoleUI()
 	local old ;
 	old = hookfunction(print, function(...)
 		local args = {...}
-		frame.CanvasSize = list.AbsoluteContentSize;
 		output(args[1])
 		return old(unpack(args))
 	end)
@@ -86,7 +86,6 @@ function utils:consoleUI()
 	local old3 ;
 	old2 = hookfunction(error, function(...)
 		local args = {...}
-		frame.CanvasSize = list.AbsoluteContentSize;
 		output(args[1])
 		return old2(unpack(args))
 	end)
@@ -94,7 +93,6 @@ function utils:consoleUI()
 	local old3 ;
 	old3 = hookfunction(warn, function(...)
 		local args = {...}
-		frame.CanvasSize = list.AbsoluteContentSize;
 		output(args[1])
 		return old3(unpack(args))
 	end)
