@@ -9,3 +9,9 @@ games i plan to make scripts on:
    • Type Race!
    • Arsenal
    • My own UI Lib
+
+How to use 'utils.lua'
+
+local x = loadstring(game:HttpGet("https://raw.githubusercontent.com/wulu-epic/open-source-roblox/main/utils.lua"))()
+local utils = x.new()
+utils:test() -- outputs initalized
