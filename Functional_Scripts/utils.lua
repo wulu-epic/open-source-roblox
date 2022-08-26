@@ -69,11 +69,11 @@ function utils:consoleUI()
 
 	function output(txt)
 		local txtlabel = Instance.new("TextLabel", frame)
-		txtlabel.Size = UDim2.new(0.05,0,0.05,0)
+		txtlabel.Size = UDim2.new(1,0,0.05,0)
 		txtlabel.TextColor3 = Color3.fromRGB(255,255,255)
 		txtlabel.BackgroundTransparency=1;
-		txtlabel.TextScaled = true;
 		txtlabel.Text = txt;
+		txtlabel.Size = 34;
 	end
 
 	local old ;
